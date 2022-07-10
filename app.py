@@ -1,6 +1,7 @@
 import pickle
 import pandas as pd
 import requests
+import bz2
 from flask import Flask ,render_template,request
 
 TEMPLATE_DIR = r"C:\Users\dhc\Desktop\VS CODE\PYTHON\DATA SCIENCE\MACHINE LEARNING\MOVIE RECOMMENDATION\templates"
@@ -8,9 +9,11 @@ STATIC_DIR = r"C:\Users\dhc\Desktop\VS CODE\PYTHON\DATA SCIENCE\MACHINE LEARNING
 
 
 data = pickle.load(open('movie.pkl','rb'))
-similarity = pickle.load(open('similarity.pkl','rb'))
 frame = pd.DataFrame(data)
 movies = frame['title']
+ifile = bz2.BZ2File("similarity.pkl",'rb')
+similarity = pickle.load(ifile)
+ifile.close()
 
 
 trending = requests.get("https://api.themoviedb.org/3/trending/all/day?api_key=254afe6344db3d15ba4b1ed7143d63f3")
@@ -64,5 +67,5 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(port=3000,debug=True)
+    app.run(debug=True)
 
