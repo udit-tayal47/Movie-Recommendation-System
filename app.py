@@ -2,6 +2,7 @@ import pickle
 import pandas as pd
 import requests
 import bz2
+import os
 from flask import Flask ,render_template,request
 
 TEMPLATE_DIR = r"/templates"
@@ -66,4 +67,5 @@ def hello_world():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=21851)
+    PORT = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=PORT, debug=False)
