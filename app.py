@@ -4,8 +4,8 @@ import requests
 import bz2
 from flask import Flask ,render_template,request
 
-# TEMPLATE_DIR = r"/home/ubuntu/templates"
-# STATIC_DIR = r"/home/ubuntu/templates/static"
+TEMPLATE_DIR = r"/templates"
+STATIC_DIR = r"/templates/static"
 
 
 data = pickle.load(open('movie.pkl','rb'))
@@ -31,8 +31,7 @@ for i in range(15):
     except:
         i=i+1
 
-# app = Flask(__name__ ,template_folder=TEMPLATE_DIR,static_folder=STATIC_DIR)
-app = Flask(__name__)
+app = Flask(__name__ ,template_folder=TEMPLATE_DIR,static_folder=STATIC_DIR)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 @app.route('/',methods=['GET','POST'])
 def hello_world():
